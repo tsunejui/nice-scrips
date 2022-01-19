@@ -18,7 +18,22 @@ function screen () { #cmd Connect into docker's vm
 }
 
 function df () { #cmd Show docker disk usage
+	# src: https://docs.docker.com/engine/reference/commandline/system_df/
 	docker system df
+}
+
+function prune () { #cmd Remove all unused containers, networks, images
+	# src: https://docs.docker.com/engine/reference/commandline/system_prune/
+	docker system prune -a
+}
+
+function sort-images () { #cmd sort your docker images by size
+	# src: https://stackoverflow.com/questions/58065875/how-to-sort-my-docker-images-by-size-with-docker-images-command
+	docker images --format "{{.ID}}\t{{.Size}}\t{{.Repository}}" | sort -k 2 -h
+}
+
+function find-id () { #cmd inspect docker id
+	docker ps -q | xargs docker inspect --format '{{.State.Pid}}, {{.Id}}, {{.Name}}, {{.GraphDriver.Data.WorkDir}}' | grep $@
 }
 
 if [ $# -eq 0 ] ; then

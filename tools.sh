@@ -16,6 +16,11 @@ function zu () { #cmd solve the unpop zhuyin frame
 	killall TCIM_Extension
 }
 
+function exec-du () { #cmd du command, short for disk usage
+	echo "Searching..."
+	du -hd1 $1 | sort -h
+}
+
 if [ $# -eq 0 ] ; then
 	usage
 else
